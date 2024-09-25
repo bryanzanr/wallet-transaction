@@ -9,6 +9,28 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
+  resources :authentication, defaults: { format: :json } do
+    collection do
+      post :sign_in
+      post :sign_out
+    end
+  end
+
+  resources :transaction, defaults: { format: :json } do
+    collection do
+      post :deposit
+      post :withdraw
+    end
+  end
+
+  resources :investation, defaults: { format: :json } do
+    collection do
+      get :price
+      get :prices
+      get :price_all
+    end
+  end
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
